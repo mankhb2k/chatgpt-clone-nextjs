@@ -92,47 +92,36 @@ export function Sidebar() {
   return (
     <div className="flex h-full w-[260px] flex-col bg-[#171717] text-[#ececec] border-r border-[#2f2f2f] select-none">
       
-      {/* 1. Header: Logo và Nút thu nhỏ Sidebar */}
+      {/* 1. Header: Nút thu nhỏ Sidebar (trái) và Nút Chat mới (phải) - Screenshot 1 */}
       <div className="flex items-center justify-between px-3.5 py-3">
-        {/* ChatGPT SVG Logo */}
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => setCurrentView("chat")}>
-          <svg
-            viewBox="0 0 24 24"
-            className="h-6 w-6 fill-current text-white hover:opacity-85 transition-opacity"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M21.74 11.9a.86.86 0 0 0-.15-.43L19 7.63V4.5a1.5 1.5 0 0 0-1.5-1.5H14.4l-3.84-2.6a.85.85 0 0 0-.89 0L6.83 3H3.75A1.5 1.5 0 0 0 2.25 4.5v3.13L.36 11.47a.86.86 0 0 0 0 .86l1.89 3.84V19.3a1.5 1.5 0 0 0 1.5 1.5h3.08l3.84 2.6a.86.86 0 0 0 .89 0l3.84-2.6H17.5a1.5 1.5 0 0 0 1.5-1.5v-3.13l1.89-3.84a.86.86 0 0 0 .85-.83zM12 21.36L8.85 19.3H4.25v-4.6L2.14 12l2.11-2.7v-4.6h4.6L12 2.64l3.15 2.06h4.6v4.6L21.86 12l-2.11 2.7v4.6h-4.6z"/>
-            <circle cx="12" cy="12" r="2"/>
-          </svg>
-        </div>
         {/* Nút thu nhỏ Sidebar */}
         <button
           onClick={() => setSidebarOpen(false)}
           className="rounded-md p-1.5 hover:bg-[#212121] text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
           title="Close sidebar"
         >
-          <PanelLeftClose className="h-5 w-5" />
+          <PanelLeftClose className="h-5.5 w-5.5" />
+        </button>
+
+        {/* Nút tạo Chat mới (độc lập ở góc phải của header) */}
+        <button
+          onClick={() => createNewChat()}
+          className="rounded-md p-1.5 hover:bg-[#212121] text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+          title="New chat"
+        >
+          <Edit3 className="h-5.5 w-5.5" />
         </button>
       </div>
 
       {/* 2. Menu Điều Hướng Chính */}
       <div className="px-3 py-1.5 space-y-1">
-        {/* Nút Chat mới */}
-        <button
-          onClick={() => createNewChat()}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-[#212121] transition-colors cursor-pointer"
-        >
-          <Plus className="h-4 w-4" />
-          <span>New chat</span>
-        </button>
-
-        {/* Nút Tìm kiếm Chat */}
+        {/* Hộp Tìm kiếm hội thoại (Screenshot 1) */}
         <button
           onClick={() => setSearchModalOpen(true)}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-[#212121] transition-colors cursor-pointer"
+          className="flex w-full items-center gap-3 rounded-lg border border-[#2f2f2f] bg-transparent px-3 py-1.5 text-sm text-slate-400 hover:bg-[#212121] transition-colors cursor-pointer text-left mb-3"
         >
-          <Search className="h-4 w-4" />
-          <span>Search chats</span>
+          <Search className="h-4 w-4 text-slate-500" />
+          <span className="text-[13px] text-slate-400">Search chats</span>
         </button>
 
         {/* Nút Thư viện */}

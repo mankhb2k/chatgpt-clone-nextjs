@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useChatStore } from "@/store/chatStore";
-import { Search, X, MessageSquare, Plus } from "lucide-react";
+import { Search, X, MessageSquare, Edit3 } from "lucide-react";
 
 export function SearchModal() {
   const {
@@ -59,14 +59,14 @@ export function SearchModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop nền tối mờ phía sau */}
+      {/* Backdrop nền tối nhẹ phía sau, KHÔNG LÀM MỜ (matches Screenshot 2) */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-[#0d0d0d]/30"
         onClick={() => setSearchModalOpen(false)}
       />
 
-      {/* Khung Modal chính (Screenshot 2) */}
-      <div className="relative z-10 w-full max-w-lg rounded-2xl border border-[#2f2f2f] bg-[#212121] text-[#ececec] shadow-2xl overflow-hidden flex flex-col max-h-[500px]">
+      {/* Khung Modal chính lớn hơn (max-w-[650px]) và cao hơn (max-h-[600px]) */}
+      <div className="relative z-10 w-full max-w-[650px] rounded-2xl border border-[#2f2f2f] bg-[#212121] text-[#ececec] shadow-2xl overflow-hidden flex flex-col max-h-[600px]">
         {/* Hộp tìm kiếm đầu trang */}
         <div className="flex items-center gap-2 border-b border-[#2f2f2f] px-4 py-3">
           <Search className="h-5 w-5 text-slate-400 shrink-0" />
@@ -89,13 +89,13 @@ export function SearchModal() {
         {/* Thân Modal chứa danh sách và kết quả */}
         <div className="flex-1 overflow-y-auto p-2 space-y-4">
           
-          {/* Nút tạo Chat mới */}
+          {/* Nút tạo Chat mới (Sử dụng icon Edit3 thay vì Plus để giống ChatGPT) */}
           <button
             onClick={handleNewChat}
             className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold hover:bg-[#2f2f2f] transition-colors text-left"
           >
             <div className="flex h-5 w-5 items-center justify-center rounded bg-[#2f2f2f] text-slate-300">
-              <Plus className="h-4 w-4" />
+              <Edit3 className="h-3.5 w-3.5" />
             </div>
             <span>New chat</span>
           </button>
