@@ -1,32 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Định nghĩa các biến màu sắc giao diện theo tông tối của ChatGPT */
+  --background: #0d0d0d;        /* Màu nền màn hình chính */
+  --foreground: #ececec;        /* Màu chữ chính */
+  --sidebar-bg: #171717;        /* Màu nền thanh bên trái */
+  --sidebar-hover: #212121;     /* Màu khi di chuột qua các mục ở thanh bên */
+  --input-bg: #2f2f2f;          /* Màu nền của ô nhập chat */
+  --border-color: #2f2f2f;      /* Màu của các đường viền ngăn cách */
+  --accent-color: #10a37f;      /* Màu xanh thương hiệu ChatGPT */
 }
 
+/* Tích hợp các biến trên vào hệ thống Tailwind CSS v4 */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-main: var(--background);
+  --color-bg-sidebar: var(--sidebar-bg);
+  --color-hover-sidebar: var(--sidebar-hover);
+  --color-bg-input: var(--input-bg);
+  --color-border-custom: var(--border-color);
+  --color-accent: var(--accent-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Định dạng cơ bản cho toàn trang web */
 html,
 body {
-  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow: hidden; /* Ngăn không cho trang bị cuộn thanh cuộn tổng */
 }
 
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Định dạng thanh cuộn (scrollbar) tinh tế */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #686868;
 }
