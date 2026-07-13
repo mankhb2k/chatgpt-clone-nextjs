@@ -25,15 +25,19 @@ export interface Chat {
 interface ChatState {
   chats: Chat[];                // Mảng lưu danh sách các cuộc hội thoại
   currentChatId: string | null; // ID cuộc hội thoại đang mở
+  currentView: "chat" | "library" | "projects"; // Trang hiển thị hiện tại: chat, thư viện, dự án
   isSidebarOpen: boolean;       // Trạng thái đóng/mở thanh bên trái
   searchQuery: string;          // Từ khóa tìm kiếm các cuộc hội thoại
   selectedModel: string;        // Tên mô hình AI đang chọn toàn cục
   webSearchGlobal: boolean;     // Trạng thái bật/tắt Web Search toàn cục
   isGenerating: boolean;        // AI có đang sinh câu trả lời không
+  isSearchModalOpen: boolean;   // Trạng thái mở/đóng modal tìm kiếm chat
+  isProfileMenuOpen: boolean;   // Trạng thái mở/đóng menu thông tin cá nhân ở footer
   
   // Các hàm hành động (Actions) tác động lên dữ liệu
   createNewChat: () => string;
   setCurrentChatId: (id: string | null) => void;
+  setCurrentView: (view: "chat" | "library" | "projects") => void;
   deleteChat: (id: string) => void;
   renameChat: (id: string, title: string) => void;
   addMessage: (chatId: string, message: Message) => void;
@@ -42,6 +46,8 @@ interface ChatState {
   setSearchQuery: (query: string) => void;
   setSelectedModel: (model: string) => void;
   setWebSearchGlobal: (enabled: boolean) => void;
+  setSearchModalOpen: (open: boolean) => void;
+  setProfileMenuOpen: (open: boolean) => void;
   sendMessage: (content: string) => Promise<void>;
 }
 
@@ -127,11 +133,14 @@ Chúc bạn thực hiện thành công!`,
 export const useChatStore = create<ChatState>((set, get) => ({
   chats: INITIAL_CHATS,         // Dữ liệu mẫu ban đầu
   currentChatId: "chat-1",      // Mở sẵn chat đầu tiên
+  currentView: "chat",          // Trang hiển thị hiện tại: chat, library, projects
   isSidebarOpen: true,          // Mở sidebar bên trái
   searchQuery: "",              // Từ khóa tìm kiếm rỗng
   selectedModel: "ChatGPT",     // Model mặc định là ChatGPT
   webSearchGlobal: false,       // Tắt tìm kiếm web toàn cục mặc định
   isGenerating: false,          // AI chưa hoạt động sinh chữ
+  isSearchModalOpen: false,     // Mặc định đóng modal tìm kiếm chat
+  isProfileMenuOpen: false,     // Mặc định đóng menu cá nhân ở footer
 
   // Hàm tạo một cuộc trò chuyện mới hoàn toàn
   createNewChat: () => {
@@ -145,10 +154,11 @@ export const useChatStore = create<ChatState>((set, get) => ({
       webSearchEnabled: get().webSearchGlobal,
     };
     
-    // Thêm chat mới vào đầu danh sách và đổi cuộc trò chuyện hiện tại thành ID mới này
+    // Thêm chat mới vào đầu danh sách, đổi cuộc trò chuyện hiện tại thành ID mới này và chuyển view sang "chat"
     set((state) => ({
       chats: [newChat, ...state.chats],
       currentChatId: newId,
+      currentView: "chat",
     }));
 
     return newId; // Trả về ID vừa tạo
@@ -156,7 +166,12 @@ export const useChatStore = create<ChatState>((set, get) => ({
 
   // Hàm chuyển đổi cuộc trò chuyện hiển thị trên màn hình
   setCurrentChatId: (id) => {
-    set({ currentChatId: id });
+    set({ currentChatId: id, currentView: "chat" });
+  },
+
+  // Hàm chuyển đổi trang hiển thị (chat, library, projects)
+  setCurrentView: (view) => {
+    set({ currentView: view });
   },
 
   // Hàm xóa cuộc trò chuyện
@@ -245,6 +260,16 @@ export const useChatStore = create<ChatState>((set, get) => ({
         ),
       }));
     }
+  },
+
+  // Setter cho modal tìm kiếm chat
+  setSearchModalOpen: (open) => {
+    set({ isSearchModalOpen: open });
+  },
+
+  // Setter cho profile menu ở footer
+  setProfileMenuOpen: (open) => {
+    set({ isProfileMenuOpen: open });
   },
 
   // Hàm gửi tin nhắn và sinh phản hồi tự động từ AI (giả lập gõ chữ typewriter)
