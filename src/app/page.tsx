@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { Sidebar } from "@/components/layout/Sidebar";
 import { MainContent } from "@/components/layout/MainContent";
 import { SearchModal } from "@/components/layout/SearchModal";
 import { SettingsModal } from "@/components/layout/SettingsModal";
+import { Sidebar } from "@/components/layout/Sidebar";
 import { useChatStore } from "@/store/chatStore";
 
 export default function Home() {

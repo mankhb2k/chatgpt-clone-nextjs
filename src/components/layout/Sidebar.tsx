@@ -1,11 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { useChatStore } from "@/store/chatStore";
 import {
   PanelLeftClose,
-  Plus,
   Search,
   BookOpen,
   Folder,
@@ -25,6 +21,9 @@ import {
   ChevronRight,
   Sparkles
 } from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useChatStore } from "@/store/chatStore";
 
 export function Sidebar() {
   const {

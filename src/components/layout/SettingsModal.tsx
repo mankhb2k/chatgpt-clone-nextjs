@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import { useChatStore } from "@/store/chatStore";
-import { Dialog } from "@/components/ui/Dialog";
-import { Switch } from "@/components/ui/Switch";
 import {
   X,
   Settings,
@@ -20,6 +16,10 @@ import {
   ChevronDown,
   Lock
 } from "lucide-react";
+import React, { useState } from "react";
+import { Dialog } from "@/components/ui/Dialog";
+import { Switch } from "@/components/ui/Switch";
+import { useChatStore } from "@/store/chatStore";
 
 export function SettingsModal() {
   const { isSettingsModalOpen, setSettingsModalOpen } = useChatStore();

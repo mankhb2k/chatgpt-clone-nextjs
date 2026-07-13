@@ -301,7 +301,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
     // Tự động đổi tên tiêu đề chat dựa trên nội dung tin nhắn đầu tiên gửi đi
     const chat = get().chats.find((c) => c.id === chatId);
     if (chat && (chat.title === "New chat" || chat.messages.length === 0)) {
-      const trimmedTitle = content.length > 25 ? content.substring(0, 25) + "..." : content;
+      const trimmedTitle = content.length > 25 ? `${content.substring(0, 25)  }...` : content;
       get().renameChat(chatId, trimmedTitle);
     }
 
@@ -323,19 +323,19 @@ export const useChatStore = create<ChatState>((set, get) => ({
 
     // 3. Giả lập quá trình suy nghĩ hoặc tìm kiếm Web của AI
     if (isWebSearchEnabled) {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Đợi 2 giây tìm kiếm
+      await new Promise((resolve) => { setTimeout(resolve, 2000); }); // Đợi 2 giây tìm kiếm
       get().updateMessage(chatId, assistantMsgId, {
         isSearching: false, // Tắt hiển thị "Đang tìm kiếm..."
         searchResults: [    // Trả về liên kết giả lập
           {
             title: `Thông tin mới nhất về ${content}`,
-            url: "https://google.com/search?q=" + encodeURIComponent(content),
+            url: `https://google.com/search?q=${  encodeURIComponent(content)}`,
             snippet: `Kết quả tìm kiếm tổng hợp cho thấy các thông tin chi tiết về chủ đề này...`
           }
         ]
       });
     } else {
-      await new Promise((resolve) => setTimeout(resolve, 800)); // Đợi 0.8 giây suy nghĩ bình thường
+      await new Promise((resolve) => { setTimeout(resolve, 800); }); // Đợi 0.8 giây suy nghĩ bình thường
     }
 
     // 4. Chọn mẫu câu trả lời phù hợp dựa trên nội dung hỏi
@@ -408,7 +408,7 @@ Nếu bạn có câu hỏi cụ thể nào hơn, hãy cứ cho tôi biết nhé!
     for (let i = 0; i < words.length; i++) {
       currentText += (i === 0 ? "" : " ") + words[i];
       get().updateMessage(chatId, assistantMsgId, { content: currentText });
-      await new Promise((resolve) => setTimeout(resolve, Math.random() * 20 + 15)); // Khoảng nghỉ ngẫu nhiên tạo độ mượt
+      await new Promise((resolve) => { setTimeout(resolve, Math.random() * 20 + 15); }); // Khoảng nghỉ ngẫu nhiên tạo độ mượt
     }
 
     set({ isGenerating: false }); // Hoàn tất quá trình phản hồi

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { useChatStore } from "@/store/chatStore";
 import { Search, X, MessageSquare, Edit3 } from "lucide-react";
+import React, { useState } from "react";
 import { Dialog } from "@/components/ui/Dialog";
+import { useChatStore } from "@/store/chatStore";
 
 export function SearchModal() {
   const {

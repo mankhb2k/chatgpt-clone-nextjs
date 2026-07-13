@@ -1,29 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
 import {
   ArrowLeft,
-  User,
   Mail,
   Calendar,
   ShieldCheck,
   Key,
   Laptop,
   Smartphone,
-  ChevronRight,
   CreditCard,
   Zap,
   HardDrive,
   MessageSquare,
-  Lock,
   Edit2
 } from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
 
 export default function ProfilePage() {
   const [mfaEnabled, setMfaEnabled] = useState(true);
-  const [userName, setUserName] = useState("Nguyen Van Truong");
-  const [userEmail, setUserEmail] = useState("truong.nv@gmail.com");
+  const [userName] = useState("Nguyen Van Truong");
+  const [userEmail] = useState("truong.nv@gmail.com");
 
   return (
     <div className="flex-1 h-screen overflow-y-auto bg-[#0d0d0d] text-[#ececec]">
