@@ -4,6 +4,7 @@ import React from "react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MainContent } from "@/components/layout/MainContent";
 import { SearchModal } from "@/components/ui/SearchModal";
+import { SettingsModal } from "@/components/ui/SettingsModal";
 import { useChatStore } from "@/store/chatStore";
 
 export default function Home() {
@@ -19,6 +20,9 @@ export default function Home() {
 
       {/* 3. Hộp thoại tìm kiếm hội thoại */}
       <SearchModal />
+
+      {/* 4. Hộp thoại cài đặt tài khoản */}
+      <SettingsModal />
     </main>
   );
 }
