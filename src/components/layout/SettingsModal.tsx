@@ -1,7 +1,7 @@
-"use client";
-
 import React, { useState } from "react";
 import { useChatStore } from "@/store/chatStore";
+import { Dialog } from "@/components/ui/Dialog";
+import { Switch } from "@/components/ui/Switch";
 import {
   X,
   Settings,
@@ -28,8 +28,6 @@ export function SettingsModal() {
   const [higherIntel, setHigherIntel] = useState(true);
   const [enableDictation, setEnableDictation] = useState(false);
 
-  if (!isSettingsModalOpen) return null;
-
   // Danh sách các tab ở cột bên trái
   const tabs = [
     { id: "general", label: "General", icon: Settings },
@@ -49,18 +47,15 @@ export function SettingsModal() {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop nền tối nhẹ (Matches Screenshot 3) */}
-      <div
-        className="absolute inset-0 bg-black/60"
-        onClick={() => setSettingsModalOpen(false)}
-      />
-
-      {/* Hộp thoại Modal cài đặt chính */}
-      <div className="relative z-10 w-full max-w-3xl h-[580px] rounded-2xl border border-[#2f2f2f] bg-[#171717] text-[#ececec] shadow-2xl flex overflow-hidden select-none animate-in fade-in zoom-in-95 duration-200">
-        
+    <Dialog
+      isOpen={isSettingsModalOpen}
+      onClose={() => setSettingsModalOpen(false)}
+      className="max-w-3xl h-[580px]"
+      showOverlayBlur={true}
+    >
+      <div className="w-full h-full flex overflow-hidden">
         {/* CỘT TRÁI: Thanh Menu Điều hướng Cài đặt */}
-        <div className="w-[240px] bg-[#171717] border-r border-[#2f2f2f] flex flex-col p-3">
+        <div className="w-[240px] bg-[#171717] border-r border-[#2f2f2f] flex flex-col p-3 shrink-0">
           {/* Nút Đóng Modal ở trên cùng cột trái */}
           <div className="mb-2">
             <button
@@ -184,19 +179,7 @@ export function SettingsModal() {
                 <div className="border-b border-[#2f2f2f]/40 pb-3 space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[13.5px] font-medium text-slate-200">Higher intelligence</span>
-                    {/* Switch Toggle kiểu iOS */}
-                    <button
-                      onClick={() => setHigherIntel(!higherIntel)}
-                      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out outline-none ${
-                        higherIntel ? "bg-blue-600" : "bg-[#2f2f2f]"
-                      }`}
-                    >
-                      <span
-                        className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                          higherIntel ? "translate-x-4" : "translate-x-0"
-                        }`}
-                      />
-                    </button>
+                    <Switch checked={higherIntel} onChange={setHigherIntel} />
                   </div>
                   <p className="text-[11.5px] text-slate-500 leading-normal max-w-md">
                     ChatGPT can automatically use a higher intelligence setting when you ask a complex question.
@@ -206,18 +189,7 @@ export function SettingsModal() {
                 {/* 6. Enable Dictation */}
                 <div className="flex items-center justify-between pb-3">
                   <span className="text-[13.5px] font-medium text-slate-200">Enable Dictation</span>
-                  <button
-                    onClick={() => setEnableDictation(!enableDictation)}
-                    className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out outline-none ${
-                      enableDictation ? "bg-blue-600" : "bg-[#2f2f2f]"
-                    }`}
-                  >
-                    <span
-                      className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                        enableDictation ? "translate-x-4" : "translate-x-0"
-                      }`}
-                    />
-                  </button>
+                  <Switch checked={enableDictation} onChange={setEnableDictation} />
                 </div>
 
               </div>
@@ -232,8 +204,7 @@ export function SettingsModal() {
           )}
 
         </div>
-
       </div>
-    </div>
+    </Dialog>
   );
 }

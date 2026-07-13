@@ -3,8 +3,8 @@
 import React from "react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MainContent } from "@/components/layout/MainContent";
-import { SearchModal } from "@/components/ui/SearchModal";
-import { SettingsModal } from "@/components/ui/SettingsModal";
+import { SearchModal } from "@/components/layout/SearchModal";
+import { SettingsModal } from "@/components/layout/SettingsModal";
 import { useChatStore } from "@/store/chatStore";
 
 export default function Home() {
