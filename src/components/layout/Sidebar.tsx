@@ -15,7 +15,14 @@ import {
   Trash2,
   Edit3,
   Check,
-  X
+  X,
+  Settings,
+  LogOut,
+  Sliders,
+  User,
+  HelpCircle,
+  ChevronRight,
+  Sparkles
 } from "lucide-react";
 
 export function Sidebar() {
@@ -277,18 +284,94 @@ export function Sidebar() {
           <span>Claim offer</span>
         </button>
 
-        {/* Thông tin tài khoản User */}
-        <div
-          onClick={() => setProfileMenuOpen(!isProfileMenuOpen)}
-          className="relative flex items-center gap-3 rounded-lg p-2 hover:bg-[#212121] transition-colors cursor-pointer"
-        >
-          {/* Avatar viết tắt của Truong Nguyen */}
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-xs font-bold text-white">
-            TN
-          </div>
-          <div className="flex-1 overflow-hidden">
-            <div className="truncate text-sm font-semibold text-white">Truong Nguyen</div>
-            <div className="text-xs text-slate-400">Free</div>
+        {/* Hộp thoại thông tin cá nhân (Profile Menu Dropdown) - Screenshot 4 */}
+        <div className="relative">
+          {isProfileMenuOpen && (
+            <>
+              {/* Backdrop để tắt menu khi click ra ngoài */}
+              <div
+                className="fixed inset-0 z-30"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setProfileMenuOpen(false);
+                }}
+              />
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="absolute bottom-full left-0 mb-2 z-40 w-[236px] rounded-2xl border border-[#2f2f2f] bg-[#171717] p-1.5 shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-150"
+              >
+                {/* Mục Profile ở trên cùng */}
+                <div className="flex items-center justify-between rounded-lg p-2.5 hover:bg-[#212121] transition-colors cursor-pointer">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-500 text-[10px] font-bold text-white">
+                      TN
+                    </div>
+                    <div className="text-[13px] font-medium text-white truncate max-w-[130px]">
+                      Truong Nguyen
+                    </div>
+                  </div>
+                  <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
+                </div>
+
+                <div className="my-1 border-t border-[#2f2f2f]" />
+
+                {/* Try Plus Free */}
+                <div className="flex items-center gap-2.5 rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-slate-200 transition-colors cursor-pointer">
+                  <Sparkles className="h-4 w-4 text-purple-400" />
+                  <span>Try Plus free</span>
+                </div>
+
+                {/* Personalization */}
+                <div className="flex items-center gap-2.5 rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-slate-200 transition-colors cursor-pointer">
+                  <Sliders className="h-4 w-4 text-slate-400" />
+                  <span>Personalization</span>
+                </div>
+
+                {/* Profile */}
+                <div className="flex items-center gap-2.5 rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-slate-200 transition-colors cursor-pointer">
+                  <User className="h-4 w-4 text-slate-400" />
+                  <span>Profile</span>
+                </div>
+
+                {/* Settings */}
+                <div className="flex items-center gap-2.5 rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-slate-200 transition-colors cursor-pointer">
+                  <Settings className="h-4 w-4 text-slate-400" />
+                  <span>Settings</span>
+                </div>
+
+                <div className="my-1 border-t border-[#2f2f2f]" />
+
+                {/* Help */}
+                <div className="flex items-center justify-between rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-slate-200 transition-colors cursor-pointer">
+                  <div className="flex items-center gap-2.5">
+                    <HelpCircle className="h-4 w-4 text-slate-400" />
+                    <span>Help</span>
+                  </div>
+                  <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
+                </div>
+
+                {/* Log out */}
+                <div className="flex items-center gap-2.5 rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer">
+                  <LogOut className="h-4 w-4" />
+                  <span>Log out</span>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Button thông tin tài khoản */}
+          <div
+            onClick={() => setProfileMenuOpen(!isProfileMenuOpen)}
+            className="flex items-center gap-3 rounded-lg p-2 hover:bg-[#212121] transition-colors cursor-pointer"
+          >
+            {/* Avatar viết tắt của Truong Nguyen */}
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-xs font-bold text-white">
+              TN
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <div className="truncate text-sm font-semibold text-white">Truong Nguyen</div>
+              <div className="text-xs text-slate-400">Free</div>
+            </div>
           </div>
         </div>
       </div>
