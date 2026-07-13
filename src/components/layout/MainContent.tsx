@@ -324,14 +324,14 @@ export function MainContent() {
             {/* 2.2. Khu vực Ô nhập tin nhắn cố định ở dưới */}
             <div className="border-t border-[#2f2f2f] bg-[#0d0d0d] px-4 py-4">
               <div className="mx-auto max-w-2xl">
-                {/* Khung nhập (Input wrapper) */}
-                <div className="relative flex flex-col rounded-3xl border border-[#2f2f2f] bg-[#2f2f2f]/40 px-4 py-3 focus-within:border-slate-500 transition-colors">
-                  {/* Nút cộng + bên trái */}
-                  <div className="flex items-end justify-between gap-2">
+                {/* Khung nhập (Input wrapper - bo tròn hoàn toàn dạng pill/capsule) */}
+                <div className="relative flex flex-col rounded-full border border-[#2f2f2f] bg-[#2f2f2f]/40 px-4 py-2.5 focus-within:border-slate-500 transition-colors">
+                  <div className="flex items-center justify-between gap-2">
+                    {/* Nút cộng + bên trái */}
                     <button className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2f2f2f] text-slate-300 hover:text-white transition-colors cursor-pointer">
                       <Plus className="h-4.5 w-4.5" />
                     </button>
-
+ 
                     {/* Textarea nhập chữ */}
                     <textarea
                       ref={textareaRef}
@@ -340,10 +340,10 @@ export function MainContent() {
                       onChange={(e) => setInput(e.target.value)}
                       onKeyDown={handleKeyDown}
                       placeholder="Ask anything"
-                      className="flex-1 resize-none bg-transparent px-3 py-1.5 text-[15px] text-white placeholder-slate-400 outline-none max-h-[200px]"
+                      className="flex-1 resize-none bg-transparent px-3 py-2 text-[15px] text-white placeholder-slate-400 outline-none max-h-[200px]"
                       style={{ height: "auto" }}
                     />
-
+ 
                     {/* Hàng nút chức năng bên phải */}
                     <div className="flex items-center gap-1.5 shrink-0">
                       {/* Nút Web Search */}
@@ -359,29 +359,32 @@ export function MainContent() {
                         <Globe className="h-3.5 w-3.5" />
                         <span>Search</span>
                       </button>
-
+ 
                       {/* Microphone */}
                       <button className="flex h-9 w-9 items-center justify-center rounded-full bg-transparent text-slate-400 hover:text-white transition-colors cursor-pointer">
-                        <Mic className="h-4 w-4" />
+                        <Mic className="h-4.5 w-4.5" />
                       </button>
-
-                      {/* Soundwave wave */}
-                      <button className="flex h-9 w-9 items-center justify-center rounded-full bg-transparent text-slate-400 hover:text-white transition-colors cursor-pointer">
-                        <Volume2 className="h-4.5 w-4.5" />
+ 
+                      {/* Soundwave wave (white filled circle with black wave lines - Screenshot 1 & 2) */}
+                      <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0d0d0d] hover:opacity-90 transition-opacity cursor-pointer">
+                        <svg viewBox="0 0 24 24" className="h-4.5 w-4.5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                          <rect x="4" y="9" width="2" height="6" rx="1"/>
+                          <rect x="8" y="6" width="2" height="12" rx="1"/>
+                          <rect x="12" y="3" width="2" height="18" rx="1"/>
+                          <rect x="16" y="6" width="2" height="12" rx="1"/>
+                          <rect x="20" y="9" width="2" height="6" rx="1"/>
+                        </svg>
                       </button>
-
-                      {/* Nút gửi hoặc dừng sinh chữ */}
-                      <button
-                        onClick={handleSend}
-                        disabled={!input.trim() && !isGenerating}
-                        className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 cursor-pointer ${
-                          input.trim() || isGenerating
-                            ? "bg-white text-[#0d0d0d] hover:bg-slate-200"
-                            : "bg-[#2f2f2f] text-slate-500"
-                        }`}
-                      >
-                        {isGenerating ? <Square className="h-4.5 w-4.5 fill-current" /> : <ArrowUp className="h-4.5 w-4.5" />}
-                      </button>
+ 
+                      {/* Nút gửi hoặc dừng sinh chữ (Chỉ hiện khi có chữ nhập vào hoặc AI đang trả lời) */}
+                      {(input.trim() || isGenerating) && (
+                        <button
+                          onClick={handleSend}
+                          className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0d0d0d] hover:bg-slate-200 transition-colors cursor-pointer"
+                        >
+                          {isGenerating ? <Square className="h-4 w-4 fill-current" /> : <ArrowUp className="h-4.5 w-4.5" />}
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
