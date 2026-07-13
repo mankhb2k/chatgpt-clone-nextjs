@@ -1,8 +1,5 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { useChatStore } from "@/store/chatStore";
-import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer";
 import {
   PanelLeftOpen,
   ChevronDown,
@@ -14,9 +11,7 @@ import {
   Image as ImageIcon,
   PenTool,
   Search,
-  BookOpen,
   FolderOpen,
-  Volume2,
   Square,
   Globe,
   Share2,
@@ -26,6 +21,9 @@ import {
   Sparkles,
   FileText
 } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer";
+import { useChatStore } from "@/store/chatStore";
 
 export function MainContent() {
   const {
@@ -71,7 +69,7 @@ export function MainContent() {
   // Xử lý gửi tin nhắn
   const handleSend = () => {
     if (!input.trim() || isGenerating) return;
-    sendMessage(input.trim());
+    void sendMessage(input.trim());
     setInput("");
   };
 
@@ -104,7 +102,7 @@ export function MainContent() {
   ];
 
   // Hàm render ô nhập liệu dùng chung ở cả trang chủ (chính giữa) và trang chat (dưới cùng)
-  const renderChatInput = (isCenter = false) => {
+  const renderChatInput = () => {
     return (
       <div
         className={`relative flex flex-col rounded-full border border-[#2f2f2f] bg-[#2f2f2f]/40 px-4 py-2.5 transition-all focus-within:border-slate-500 w-full max-w-2xl mx-auto`}
@@ -306,7 +304,7 @@ export function MainContent() {
                     
                     {/* Ô chat ở giữa */}
                     <div className="w-full mb-6">
-                      {renderChatInput(true)}
+                      {renderChatInput()}
                     </div>
  
                     {/* Gợi ý nhanh các câu hỏi (Thiết kế phẳng text-only, hover sáng lên) */}
@@ -366,9 +364,9 @@ export function MainContent() {
                                 <Globe className="h-3 w-3" />
                                 <span>Kết quả tìm kiếm Web</span>
                               </div>
-                              {msg.searchResults.map((res, index) => (
+                              {msg.searchResults.map((res) => (
                                 <a
-                                  key={index}
+                                  key={res.url}
                                   href={res.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
@@ -405,7 +403,7 @@ export function MainContent() {
             {activeChat && activeChat.messages.length > 0 ? (
               <div className="border-t border-[#2f2f2f] bg-[#0d0d0d] px-4 py-4">
                 <div className="mx-auto max-w-2xl">
-                  {renderChatInput(false)}
+                  {renderChatInput()}
                   <div className="mt-2 text-center text-[10px] text-slate-500 select-none">
                     ChatGPT can make mistakes. Check important info.
                   </div>
@@ -509,9 +507,9 @@ export function MainContent() {
                     if (libraryTab === "files" && item.type !== "file") return false;
                     return item.name.toLowerCase().includes(librarySearch.toLowerCase());
                   })
-                  .map((item, index) => (
+                  .map((item) => (
                     <div
-                      key={index}
+                      key={item.name}
                       className="grid grid-cols-12 items-center px-4 py-3.5 hover:bg-[#212121] transition-colors text-sm text-slate-200 cursor-pointer"
                     >
                       <div className="col-span-6 flex items-center gap-3">

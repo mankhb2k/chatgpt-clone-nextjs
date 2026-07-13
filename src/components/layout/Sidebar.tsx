@@ -1,10 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useChatStore } from "@/store/chatStore";
 import {
   PanelLeftClose,
-  Plus,
   Search,
   BookOpen,
   Folder,
@@ -24,6 +21,9 @@ import {
   ChevronRight,
   Sparkles
 } from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useChatStore } from "@/store/chatStore";
 
 export function Sidebar() {
   const {
@@ -329,10 +329,14 @@ export function Sidebar() {
                 </div>
 
                 {/* Profile */}
-                <div className="flex items-center gap-2.5 rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-slate-200 transition-colors cursor-pointer">
+                <Link
+                  href="/profile"
+                  onClick={() => setProfileMenuOpen(false)}
+                  className="flex items-center gap-2.5 rounded-lg p-2.5 hover:bg-[#212121] text-[13px] text-slate-200 transition-colors cursor-pointer"
+                >
                   <User className="h-4 w-4 text-slate-400" />
                   <span>Profile</span>
-                </div>
+                </Link>
 
                 {/* Settings */}
                 <div
