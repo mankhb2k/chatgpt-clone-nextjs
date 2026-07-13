@@ -33,6 +33,7 @@ interface ChatState {
   isGenerating: boolean;        // AI có đang sinh câu trả lời không
   isSearchModalOpen: boolean;   // Trạng thái mở/đóng modal tìm kiếm chat
   isProfileMenuOpen: boolean;   // Trạng thái mở/đóng menu thông tin cá nhân ở footer
+  isSettingsModalOpen: boolean;  // Trạng thái mở/đóng modal cài đặt (General Settings)
   
   // Các hàm hành động (Actions) tác động lên dữ liệu
   createNewChat: () => string;
@@ -48,6 +49,7 @@ interface ChatState {
   setWebSearchGlobal: (enabled: boolean) => void;
   setSearchModalOpen: (open: boolean) => void;
   setProfileMenuOpen: (open: boolean) => void;
+  setSettingsModalOpen: (open: boolean) => void;
   sendMessage: (content: string) => Promise<void>;
 }
 
@@ -141,6 +143,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
   isGenerating: false,          // AI chưa hoạt động sinh chữ
   isSearchModalOpen: false,     // Mặc định đóng modal tìm kiếm chat
   isProfileMenuOpen: false,     // Mặc định đóng menu cá nhân ở footer
+  isSettingsModalOpen: false,    // Mặc định đóng modal cài đặt (General Settings)
 
   // Hàm tạo một cuộc trò chuyện mới hoàn toàn
   createNewChat: () => {
@@ -270,6 +273,11 @@ export const useChatStore = create<ChatState>((set, get) => ({
   // Setter cho profile menu ở footer
   setProfileMenuOpen: (open) => {
     set({ isProfileMenuOpen: open });
+  },
+
+  // Setter cho settings modal
+  setSettingsModalOpen: (open) => {
+    set({ isSettingsModalOpen: open });
   },
 
   // Hàm gửi tin nhắn và sinh phản hồi tự động từ AI (giả lập gõ chữ typewriter)
